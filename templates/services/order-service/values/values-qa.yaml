@@ -28,5 +28,6 @@ serviceTargetPort: 8080
 # Both are added to the container environment in podSpec as envFrom source.
 env:
   config:
-    FFKEY: <+pipeline.variables.ffkey_prod>
-    FF_API_KEY: <+pipeline.variables.ffkey_prod>
+    dbUsername: "user"
+  secrets:
+    dbPassword: "pass123"
