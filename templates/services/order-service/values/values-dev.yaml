@@ -1,4 +1,4 @@
-name: <+pipeline.variables.serviceName>
+name: <+pipeline.variables.serviceName>-<+env.name>
 replicas: 1
 
 virtualPath: <+pipeline.variables.serviceName>
