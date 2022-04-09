@@ -25,7 +25,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /chaos-app/{{.Values.virtualPath}}/
+      - path: /chaos-app/{{.Values.virtualPath}}/(.*)
         backend:
           serviceName: {{.Values.name}}
           servicePort: http
