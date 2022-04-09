@@ -1,6 +1,33 @@
-#
-# Ingress targeting canary only, at /canary/*
-#
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.name}}-canary
+spec:
+  type: {{.Values.serviceType}}
+  ports:
+  - name: http-canary
+    port: 8080
+    targetPort: http
+    protocol: TCP
+  selector:
+    app: {{.Values.name}}
+    harness.io/track: canary
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.name}}-stable
+spec:
+  type: {{.Values.serviceType}}
+  ports:
+  - name: http-stable
+    port: 8080
+    targetPort: http
+    protocol: TCP
+  selector:
+    app: {{.Values.name}}
+    harness.io/track: stable
+---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
@@ -13,7 +40,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /canary/(.*)
+      - path: /chaos-app/{{.Values.virtualPath}}/canary/(.*)
         backend:
           serviceName: {{.Values.name}}-canary
           servicePort: http-canary
@@ -33,7 +60,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api/(.*)
+      - path: /chaos-app/{{.Values.virtualPath}}/api/(.*)
         backend:
           serviceName: {{.Values.name}}-stable
           servicePort: http-stable
