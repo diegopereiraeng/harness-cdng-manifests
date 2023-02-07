@@ -1,5 +1,7 @@
 # charts/mongodb/Chart.yaml
-apiVersion: v3
+apiVersion: v2
 name: mongodb
 version: 0.1.0
 description: MongoDB chart for Kubernetes
+type: application
+appVersion: "1.0"
