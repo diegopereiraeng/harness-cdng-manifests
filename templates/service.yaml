@@ -30,4 +30,5 @@ spec:
         backend:
           service:
             name: {{.Values.name}}
-            port: {{.Values.servicePort}}
+            port: 
+              number: {{.Values.servicePort}}
