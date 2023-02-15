@@ -21,10 +21,13 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
+  ingressClassName: cd-demo-nginx
   rules:
   - http:
       paths:
       - path: /{{.Values.virtualPath}}/{{.Values.environment}}/(.*)
+        pathType: Prefix
         backend:
-          serviceName: {{.Values.name}}
-          servicePort: {{.Values.servicePort}}
+          service:
+            name: {{.Values.name}}
+            port: {{.Values.servicePort}}
